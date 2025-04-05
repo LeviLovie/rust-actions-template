@@ -23,7 +23,7 @@ jobs:
     permissions:
       contents: none
     name: CI
-    needs: [msrv, docs]
+    needs: [msrv]
     runs-on: ubuntu-latest
     if: "always()"
     steps:
