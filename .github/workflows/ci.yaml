@@ -46,7 +46,7 @@ jobs:
         run: cargo hack check --feature-powerset --locked --rust-version --ignore-private --workspace --all-targets
   docs:
     name: Docs
-    needs: ["tests", "codespell", "misspell"]
+    needs: ["tests", "codespell", "misspell", "spelling"]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -98,6 +98,7 @@ jobs:
         "clippy",
         "codespell",
         "misspell",
+        "spelling",
       ]
     runs-on: ubuntu-latest
     steps:
@@ -209,3 +210,11 @@ jobs:
         run: wget -O - -q https://git.io/misspell | sh -s -- -b .
       - name: Misspell
         run: ./misspell -error
+  spelling:
+    name: Spell Check with Typos
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Actions Repository
+        uses: actions/checkout@v4
+      - name: Spell Check Repo
+        uses: crate-ci/typos@master
