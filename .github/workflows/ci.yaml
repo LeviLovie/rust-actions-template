@@ -19,6 +19,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  ci:
+    permissions:
+      contents: none
+    name: CI
+    needs: [msrv]
+    runs-on: ubuntu-latest
+    if: "always()"
+    steps:
+      - name: Failed
+        run: exit 1
+        if: "contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')"
   msrv:
     name: "Check MSRV"
     runs-on: ubuntu-latest
@@ -34,17 +45,6 @@ jobs:
       - uses: taiki-e/install-action@cargo-hack
       - name: Default features
         run: cargo hack check --feature-powerset --locked --rust-version --ignore-private --workspace --all-targets
-  ci:
-    permissions:
-      contents: none
-    name: CI
-    needs: [msrv]
-    runs-on: ubuntu-latest
-    if: "always()"
-    steps:
-      - name: Failed
-        run: exit 1
-        if: "contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')"
   docs:
     name: Docs
     needs: [tests]
