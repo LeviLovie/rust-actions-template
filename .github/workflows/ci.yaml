@@ -89,7 +89,7 @@ jobs:
   lints:
     permissions:
       contents: none
-    name: CI
+    name: Lints
     needs: ["minimal-version", "lockfile", "rustfmt", "clippy"]
     runs-on: ubuntu-latest
     steps:
