@@ -22,7 +22,7 @@ jobs:
   msrv:
     name: "Check MSRV"
     runs-on: ubuntu-latest
-    needs: [test, lints, docs]
+    needs: [test, docs]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
