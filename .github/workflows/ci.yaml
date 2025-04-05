@@ -164,7 +164,7 @@ jobs:
         run: cargo install sarif-fmt --locked
       - name: Check
         run: >
-          cargo clippy --workspace ${flag} --all-targets --message-format=json -- -D warnings --allow deprecated
+          cargo clippy --workspace ${{ flag }} --all-targets --message-format=json -- -D warnings --allow deprecated
           | clippy-sarif
           | tee clippy-results.sarif
           | sarif-fmt
@@ -175,4 +175,4 @@ jobs:
           sarif_file: clippy-results.sarif
           wait-for-processing: true
       - name: Report status
-        run: cargo clippy --workspace ${flag} --all-targets -- -D warnings --allow deprecated
+        run: cargo clippy --workspace ${{ flag }} --all-targets -- -D warnings --allow deprecated
