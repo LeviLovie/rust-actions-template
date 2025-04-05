@@ -151,7 +151,7 @@ jobs:
       - name: Check formatting
         run: cargo fmt --all -- --check
   clippy:
-    name: clippy
+    name: Clippy
     runs-on: ubuntu-latest
     strategy:
       matrix:
