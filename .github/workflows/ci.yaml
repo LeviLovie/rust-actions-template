@@ -46,7 +46,7 @@ jobs:
         run: cargo hack check --feature-powerset --locked --rust-version --ignore-private --workspace --all-targets
   docs:
     name: Docs
-    needs: ["lints", "codespell", "misspell"]
+    needs: ["tests", "codespell", "misspell"]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
