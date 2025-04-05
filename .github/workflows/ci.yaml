@@ -90,7 +90,15 @@ jobs:
     permissions:
       contents: none
     name: Lints
-    needs: ["minimal-versions", "lockfile", "rustfmt", "clippy"]
+    needs:
+      [
+        "minimal-versions",
+        "lockfile",
+        "rustfmt",
+        "clippy",
+        "codespell",
+        "misspell",
+      ]
     runs-on: ubuntu-latest
     steps:
       - name: Failed
