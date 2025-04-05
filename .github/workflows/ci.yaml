@@ -90,7 +90,7 @@ jobs:
     permissions:
       contents: none
     name: Lints
-    needs: ["minimal-version", "lockfile", "rustfmt", "clippy"]
+    needs: ["minimal-versions", "lockfile", "rustfmt", "clippy"]
     runs-on: ubuntu-latest
     steps:
       - name: Failed
@@ -115,6 +115,7 @@ jobs:
       - name: Compile with minimal versions
         run: cargo +stable check --workspace --all-features --locked
   lockfile:
+    name: Lockfile
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -127,7 +128,7 @@ jobs:
       - name: "Is lockfile updated?"
         run: cargo update --workspace --locked
   rustfmt:
-    name: rustfmt
+    name: Rust Format
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -141,7 +142,7 @@ jobs:
       - name: Check formatting
         run: cargo fmt --all -- --check
   clippy:
-    name: clippy
+    name: Clippy
     runs-on: ubuntu-latest
     permissions:
       security-events: write
