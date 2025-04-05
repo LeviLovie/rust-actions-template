@@ -23,7 +23,7 @@ jobs:
     permissions:
       contents: none
     name: CI
-    needs: [msrv]
+    needs: [msrv, docs]
     runs-on: ubuntu-latest
     if: "always()"
     steps:
@@ -33,7 +33,7 @@ jobs:
   msrv:
     name: "Check MSRV"
     runs-on: ubuntu-latest
-    needs: [test, docs]
+    needs: [test]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
