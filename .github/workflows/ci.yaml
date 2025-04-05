@@ -211,7 +211,7 @@ jobs:
       - name: Misspell
         run: ./misspell -error
   spelling:
-    name: Spell Check with Typos
+    name: Typos
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Actions Repository
