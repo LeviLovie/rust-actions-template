@@ -1,5 +1,6 @@
 [package]
 name = "rust-actions-template"
+rust-version = "1.86.0"
 version = "0.1.0"
 edition = "2024"
 
