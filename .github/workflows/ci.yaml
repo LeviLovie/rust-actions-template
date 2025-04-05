@@ -142,17 +142,20 @@ jobs:
       - name: Check formatting
         run: cargo fmt --all -- --check
   clippy:
-    name: Clippy
+    name: clippy
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flag: ["", "--no-default-features", "--all-features"]
     permissions:
-      security-events: write
+      security-events: write # to upload sarif results
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: "1.86"
+          toolchain: "1.86" # STABLE
           components: clippy
       - uses: Swatinem/rust-cache@v2
       - name: Install SARIF tools
@@ -161,7 +164,7 @@ jobs:
         run: cargo install sarif-fmt --locked
       - name: Check
         run: >
-          cargo clippy --workspace --all-features --all-targets --message-format=json -- -D warnings --allow deprecated
+          cargo clippy --workspace ${flag} --all-targets --message-format=json -- -D warnings --allow deprecated
           | clippy-sarif
           | tee clippy-results.sarif
           | sarif-fmt
@@ -172,4 +175,4 @@ jobs:
           sarif_file: clippy-results.sarif
           wait-for-processing: true
       - name: Report status
-        run: cargo clippy --workspace --all-features --all-targets -- -D warnings --allow deprecated
+        run: cargo clippy --workspace ${flag} --all-targets -- -D warnings --allow deprecated
