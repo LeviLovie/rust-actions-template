@@ -25,7 +25,6 @@ jobs:
     name: CI
     needs: [msrv, docs]
     runs-on: ubuntu-latest
-    if: "always()"
     steps:
       - name: Failed
         run: exit 1
@@ -55,7 +54,7 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: "1.86" # STABLE
+          toolchain: "1.86"
       - uses: Swatinem/rust-cache@v2
       - name: Check documentation
         env:
@@ -91,9 +90,8 @@ jobs:
     permissions:
       contents: none
     name: CI
-    needs: [minimal-version, lockfile, rustfmt, clippy]
+    needs: ["minimal-version", "lockfile", "rustfmt", "clippy"]
     runs-on: ubuntu-latest
-    if: "always()"
     steps:
       - name: Failed
         run: exit 1
