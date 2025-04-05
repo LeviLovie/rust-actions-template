@@ -33,7 +33,7 @@ jobs:
   msrv:
     name: "Check MSRV"
     runs-on: ubuntu-latest
-    needs: [test, lints]
+    needs: [test]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
         run: cargo hack check --feature-powerset --locked --rust-version --ignore-private --workspace --all-targets
   docs:
     name: Docs
-    needs: [tests, lints]
+    needs: [tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
