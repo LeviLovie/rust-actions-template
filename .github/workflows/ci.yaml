@@ -23,7 +23,7 @@ jobs:
     permissions:
       contents: none
     name: CI
-    needs: ["msrv", "docs"]
+    needs: ["msrv", "docs", "spellcheck"]
     runs-on: ubuntu-latest
     steps:
       - name: Failed
@@ -46,7 +46,7 @@ jobs:
         run: cargo hack check --feature-powerset --locked --rust-version --ignore-private --workspace --all-targets
   docs:
     name: Docs
-    needs: ["tests"]
+    needs: ["lints"]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -60,6 +60,13 @@ jobs:
         env:
           RUSTDOCFLAGS: -D warnings
         run: cargo doc --workspace --all-features --no-deps --document-private-items
+  spellcheck:
+    name: Spellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: rojopolis/spellcheck-github-actions@0.47.0
+        name: Spellcheck
   tests:
     name: Tests
     strategy:
