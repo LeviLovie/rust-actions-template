@@ -177,7 +177,6 @@ jobs:
       - name: Report status
         run: cargo clippy --workspace ${{ matrix.flag }} --all-targets -- -D warnings --allow deprecated
   spellcheck:
-    contents: none
     needs: ["codespell", "misspell"]
     name: Spellcheck
     runs-on: ubuntu-latest
@@ -188,15 +187,12 @@ jobs:
   codespell:
     name: Codespell
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.8]
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python $
+      - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
-          python-version: $
+          python-version: 3.8
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
